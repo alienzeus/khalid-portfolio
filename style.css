@@ -65,6 +65,12 @@ a:focus-visible, button:focus-visible { outline: 3px solid #9D85F2; outline-offs
 .float-card span { font-size: 14px; color: var(--muted); }
 .c1 { right: -20px; top: 10%; width: 190px; animation-delay: .9s, 1.5s; }
 .c2 { right: -20px; top: 32%; width: 190px; animation-delay: 1.05s, 2.5s; }
+@media (max-width: 767px) {
+  .c1,
+  .c2 {
+    display: none;
+  }
+}
 .c3 { left: -10px; bottom: 14%; flex-direction: row; align-items: center; gap: 12px; animation-delay: 1.2s, 2s; }
 .c3 b { display: block; font-size: 15px; color: var(--ink); }
 .c3 small { font-size: 13px; color: var(--muted); }
