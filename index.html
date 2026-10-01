@@ -1,64 +1,184 @@
+This is a complete HTML file that combines your personal portfolio with Tailwind CSS. It includes all the core sections, responsive design, and the contact links you requested, with the two floating cards hidden on mobile devices.
+```html
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Khalid Afsar Mahmud | Digital Marketer</title>
-<meta name="description" content="Khalid Afsar Mahmud, digital marketer and co-founder of Ezionic and Privatune. Strategy, social media, PR and creative.">
-<meta property="og:title" content="Khalid Afsar Mahmud | Digital Marketer">
-<meta property="og:description" content="Marketing that gets brands seen and chosen.">
-<meta property="og:image" content="khalid.webp">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%235B36D6'/><text x='50%' y='56%' text-anchor='middle' dominant-baseline='middle' font-family='Arial' font-weight='800' font-size='26' fill='white'>KM</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Khalid Afsar Mahmud | Digital Marketer</title>
+  <meta name="description" content="Khalid Afsar Mahmud, digital marketer and co-founder of Ezionic and Privatune. Strategy, social media, PR and creative.">
+  <meta property="og:title" content="Khalid Afsar Mahmud | Digital Marketer">
+  <meta property="og:description" content="Marketing that gets brands seen and chosen.">
+  <meta property="og:image" content="khalid.webp">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%235B36D6'/><text x='50%' y='56%' text-anchor='middle' dominant-baseline='middle' font-family='Arial' font-weight='800' font-size='26' fill='white'>KM</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind via CDN + custom layer for smooth utilities -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Bricolage Grotesque"', 'system-ui', 'sans-serif'],
+            body: ['Manrope', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            accent: '#5B36D6',
+            'accent-dark': '#4323B0',
+            bg: '#F6F3FD',
+            soft: '#EFE9FE',
+            line: '#ECE6FA',
+            ink: '#1B1531',
+            muted: '#4A4462',
+          },
+          boxShadow: {
+            'soft': '0 12px 32px rgba(76, 52, 170, .14)',
+          },
+          borderRadius: {
+            'xl': '1rem',
+            '2xl': '1.25rem',
+            '3xl': '1.5rem',
+            '4xl': '2rem',
+          },
+          keyframes: {
+            rise: { '0%': { opacity: 0, transform: 'translateY(24px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
+            fade: { '0%': { opacity: 0 }, '100%': { opacity: 1 } },
+            pop: { '0%': { transform: 'scale(0)' }, '100%': { transform: 'scale(1)' } },
+            spin: { '0%': { transform: 'rotate(0deg)' }, '100%': { transform: 'rotate(360deg)' } },
+            bob: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+            scroll: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
+          },
+          animation: {
+            rise: 'rise .8s cubic-bezier(.2,.7,.2,1) forwards',
+            fade: 'fade .6s ease forwards',
+            pop: 'pop 1s cubic-bezier(.2,.7,.2,1) forwards',
+            spin: 'spin 40s linear infinite',
+            bob: 'bob 6s ease-in-out infinite',
+            scroll: 'scroll 28s linear infinite',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* Small custom styles that complement Tailwind, preserving original look */
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body { background: #F6F3FD; color: #1B1531; font-family: 'Manrope', system-ui, sans-serif; line-height: 1.6; overflow-x: hidden; }
+    h2 { font-family: 'Bricolage Grotesque', system-ui, sans-serif; font-weight: 800; font-size: clamp(34px, 4.5vw, 52px); line-height: 1.08; letter-spacing: -1px; }
+    .progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; background: #5B36D6; transform-origin: left; transform: scaleX(0); z-index: 60; }
+    .nav { position: sticky; top: 0; z-index: 50; transition: background .3s, box-shadow .3s, padding .3s; }
+    .nav.scrolled { background: rgba(246, 243, 253, .85); backdrop-filter: blur(12px); box-shadow: 0 1px 0 #ECE6FA; }
+    .brand-mark { transition: transform .4s cubic-bezier(.2,.7,.2,1); }
+    .brand:hover .brand-mark { transform: rotate(-8deg) scale(1.05); }
+    .links a:not(.btn)::after { content: ''; position: absolute; left: 0; bottom: -4px; height: 2px; width: 100%; background: #5B36D6; transform: scaleX(0); transform-origin: right; transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+    .links a:not(.btn):hover::after { transform: scaleX(1); transform-origin: left; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 14px 28px; border-radius: 14px; font-weight: 700; font-size: 16px; transition: transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s, background .25s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: #5B36D6; color: #fff; }
+    .btn-primary:hover { background: #4323B0; box-shadow: 0 10px 24px rgba(91, 54, 214, .35); }
+    .btn-ghost { background: #fff; border: 1px solid #D9CFF7; color: #1B1531; }
+    .btn-white { background: #fff; color: #3A1FA8; }
+    .btn-outline { border: 1px solid #C9B9FF; color: #fff; }
+    .btn-outline:hover { background: rgba(255,255,255,.1); }
+    .icon svg { width: 24px; height: 24px; fill: none; stroke: #5B36D6; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke .3s; }
+    .card:hover .icon { background: #5B36D6; transform: rotate(-6deg); }
+    .card:hover .icon svg { stroke: #fff; }
+    .blob { position: absolute; left: 11%; bottom: 0; width: 78%; aspect-ratio: 1; border-radius: 50%; background: #E4DBFB; transform: scale(0); animation: pop 1s cubic-bezier(.2,.7,.2,1) .2s forwards; }
+    .ring { position: absolute; left: 23.5%; bottom: 9%; width: 53%; aspect-ratio: 1; border-radius: 50%; border: 2px dashed #C3B3F3; opacity: 0; animation: spin 40s linear infinite, fade .8s ease .8s forwards; }
+    .portrait { position: absolute; left: 3%; bottom: 0; width: 94%; height: auto; opacity: 0; transform: translateY(40px); animation: rise 1s cubic-bezier(.2,.7,.2,1) .45s forwards; }
+    .float-card { background: #fff; border-radius: 18px; box-shadow: 0 12px 32px rgba(76, 52, 170, .14); padding: 18px 20px; display: flex; flex-direction: column; gap: 4px; opacity: 0; animation: fade .6s ease forwards, bob 6s ease-in-out infinite; }
+    .float-card strong { font-family: 'Bricolage Grotesque', system-ui, sans-serif; font-weight: 800; font-size: 32px; line-height: 1; }
+    .float-card span { font-size: 14px; color: #4A4462; }
+    .c1 { right: -20px; top: 10%; width: 190px; animation-delay: .9s, 1.5s; }
+    .c2 { right: -20px; top: 32%; width: 190px; animation-delay: 1.05s, 2.5s; }
+    .c3 { left: -10px; bottom: 14%; flex-direction: row; align-items: center; gap: 12px; animation-delay: 1.2s, 2s; }
+    .c3 b { display: block; font-size: 15px; color: #1B1531; }
+    .c3 small { font-size: 13px; color: #4A4462; }
+    .c3 .icon { width: 40px; height: 40px; border-radius: 10px; }
+    .marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+    .track { display: flex; align-items: center; gap: 80px; width: max-content; animation: scroll 28s linear infinite; }
+    .marquee:hover .track { animation-play-state: paused; }
+    .track img { height: 52px; width: auto; filter: grayscale(1); opacity: .7; transition: filter .3s, opacity .3s; }
+    .track img:hover { filter: none; opacity: 1; }
+    .track .square { height: 68px; border-radius: 14px; }
+    .track .rounded { height: 60px; border-radius: 10px; }
+    .timeline li { display: flex; gap: 24px; padding: 28px 0; border-bottom: 1px solid #ECE6FA; }
+    .timeline li:last-child { border-bottom: 0; }
+    .date { width: 150px; flex-shrink: 0; font-size: 15px; font-weight: 600; color: #5B36D6; }
+    .logo { width: 56px; height: 56px; flex-shrink: 0; object-fit: contain; border-radius: 12px; border: 1px solid #ECE6FA; padding: 8px; transition: transform .4s cubic-bezier(.2,.7,.2,1); }
+    .logo.fill { padding: 0; border: 0; }
+    .logo.blue { background: #5A8EEA; border: 0; padding: 4px; }
+    .timeline li:hover .logo { transform: scale(1.08) rotate(-4deg); }
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); transition-delay: var(--delay, 0s); }
+    .reveal.in { opacity: 1; transform: none; }
+    .load { opacity: 0; transform: translateY(24px); animation: rise .8s cubic-bezier(.2,.7,.2,1) forwards; animation-delay: calc(var(--d) * .12s + .1s); }
+    /* hide floating cards on mobile (<=720px) */
+    @media (max-width: 720px) {
+      .c1, .c2, .c3 { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+      .reveal, .load { opacity: 1; transform: none; }
+    }
+  </style>
 </head>
-<body>
+<body class="antialiased bg-[#F6F3FD] text-[#1B1531] font-body">
+
 <div class="progress" aria-hidden="true"></div>
 
-<header class="nav">
-  <a href="#home" class="brand">
-    <span class="brand-mark">KM</span>
-    <span class="brand-name">Khalid Afsar Mahmud</span>
+<!-- HEADER -->
+<header class="nav flex items-center justify-between px-5 sm:px-8 md:px-12 lg:px-16 xl:px-24 py-5">
+  <a href="#home" class="brand flex items-center gap-3 text-[#1B1531]">
+    <span class="brand-mark w-11 h-11 rounded-xl bg-[#5B36D6] text-white grid place-items-center font-display font-extrabold text-lg">KM</span>
+    <span class="brand-name font-display font-bold text-xl">Khalid Afsar Mahmud</span>
   </a>
-  <button class="menu-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
-  <nav class="links">
-    <a href="#about">About</a>
-    <a href="#services">Services</a>
-    <a href="#experience">Experience</a>
-    <a href="#education">Education</a>
-    <a href="#contact" class="btn btn-primary">Hire me</a>
+  <button class="menu-btn hidden max-md:flex w-11 h-11 border-0 bg-white rounded-xl cursor-pointer flex-col justify-center items-center gap-1.5" aria-label="Open menu" aria-expanded="false">
+    <span class="block w-5 h-0.5 bg-[#1B1531] transition-transform"></span>
+    <span class="block w-5 h-0.5 bg-[#1B1531] transition-transform"></span>
+  </button>
+  <nav class="links flex items-center gap-9 font-medium max-md:absolute max-md:top-full max-md:left-4 max-md:right-4 max-md:flex-col max-md:items-stretch max-md:gap-1 max-md:p-4 max-md:bg-white max-md:rounded-3xl max-md:shadow-soft max-md:opacity-0 max-md:pointer-events-none max-md:-translate-y-2 max-md:transition-all">
+    <a href="#about" class="relative text-[#3A3452] max-md:p-3">About</a>
+    <a href="#services" class="relative text-[#3A3452] max-md:p-3">Services</a>
+    <a href="#experience" class="relative text-[#3A3452] max-md:p-3">Experience</a>
+    <a href="#education" class="relative text-[#3A3452] max-md:p-3">Education</a>
+    <a href="#contact" class="btn btn-primary max-md:mt-2">Hire me</a>
   </nav>
 </header>
 
 <main>
-  <section id="home" class="hero">
-    <div class="hero-text">
-      <span class="pill load" style="--d:0">Digital marketer and founder</span>
-      <h1 class="load" style="--d:1">Marketing that gets brands seen and chosen.</h1>
-      <p class="load" style="--d:2">I run strategy, social media, PR and creative for brands across tech, education and services. Co-founder of Ezionic and Privatune.</p>
-      <div class="actions load" style="--d:3">
+  <!-- HERO -->
+  <section id="home" class="hero flex flex-col lg:flex-row items-end gap-8 pt-10 px-5 sm:px-8 md:px-12 lg:px-16 xl:px-24 max-w-[1440px] mx-auto min-h-[700px] max-lg:min-h-auto">
+    <div class="hero-text flex-1 flex flex-col gap-7 pb-24 lg:pb-28 max-lg:pb-0">
+      <span class="pill load self-start px-4 py-2 rounded-full border border-[#D9CFF7] bg-white text-sm font-semibold text-[#5B36D6]" style="--d:0">Digital marketer and founder</span>
+      <h1 class="load font-display font-extrabold text-[clamp(44px,6vw,76px)] leading-[1.02] tracking-[-1.5px]" style="--d:1">Marketing that gets brands seen and chosen.</h1>
+      <p class="load max-w-[520px] text-[19px] text-[#4A4462]" style="--d:2">I run strategy, social media, PR and creative for brands across tech, education and services. Co-founder of Ezionic and Privatune.</p>
+      <div class="actions load flex flex-wrap gap-4" style="--d:3">
         <a href="#contact" class="btn btn-primary">Work with me</a>
         <a href="#experience" class="btn btn-ghost">See my experience</a>
       </div>
     </div>
 
-    <div class="hero-visual">
+    <div class="hero-visual relative w-full max-w-[640px] aspect-[640/660] flex-shrink-0 max-lg:self-center">
       <div class="blob"></div>
       <div class="ring"></div>
       <img src="khalid.webp" alt="Khalid Afsar Mahmud" class="portrait" width="1000" height="958">
-      <div class="float-card c1"><strong>2</strong><span>Companies co-founded</span></div>
-      <div class="float-card c2"><strong>5</strong><span>Brands led in marketing and PR</span></div>
-      <div class="float-card c3">
-        <span class="icon"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></span>
-        <span><b>Marketing since 2023</b><small>Dhaka, Bangladesh</small></span>
+      <!-- floating cards — hidden on mobile via CSS -->
+      <div class="float-card c1 absolute"><strong>2</strong><span>Companies co-founded</span></div>
+      <div class="float-card c2 absolute"><strong>5</strong><span>Brands led in marketing and PR</span></div>
+      <div class="float-card c3 absolute">
+        <span class="icon w-10 h-10 rounded-xl bg-[#EFE9FE] grid place-items-center flex-shrink-0">
+          <svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
+        </span>
+        <span><b class="block text-[15px] text-[#1B1531]">Marketing since 2023</b><small class="text-[13px] text-[#4A4462]">Dhaka, Bangladesh</small></span>
       </div>
     </div>
   </section>
 
-  <section class="brands reveal">
-    <p>Brands and teams I have worked with</p>
+  <!-- BRANDS -->
+  <section class="brands reveal mx-5 sm:mx-8 md:mx-12 lg:mx-16 xl:mx-24 my-0 py-8 bg-white rounded-3xl text-center max-w-[1248px] max-xl:mx-auto">
+    <p class="text-[#4A4462] mb-6">Brands and teams I have worked with</p>
     <div class="marquee">
       <div class="track">
         <img src="ezionic.webp" alt="Ezionic">
@@ -75,118 +195,201 @@
     </div>
   </section>
 
-  <section id="about" class="about">
+  <!-- ABOUT -->
+  <section id="about" class="about grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start px-5 sm:px-8 md:px-12 lg:px-16 xl:px-24 pt-28 max-w-[1440px] mx-auto">
     <h2 class="reveal">I build brands people notice, trust and come back to.</h2>
-    <div class="reveal">
+    <div class="reveal flex flex-col gap-5 text-lg leading-relaxed text-[#3A3452]">
       <p>I started in EdTech PR and social media, then co-founded Ezionic, an agency for graphic design, video editing and integrated marketing, and Privatune, an EdTech platform for private university admission prep.</p>
       <p>My work sits where strategy meets creative: planning the campaign, shaping the story, and making sure the design and video actually land with the audience.</p>
     </div>
   </section>
 
-  <section id="services" class="services">
+  <!-- SERVICES -->
+  <section id="services" class="services flex flex-col gap-12 px-5 sm:px-8 md:px-12 lg:px-16 xl:px-24 pt-28 max-w-[1440px] mx-auto">
     <h2 class="reveal">What I can do for you</h2>
-    <div class="grid">
-      <article class="card reveal">
-        <span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span>
-        <h3>Marketing strategy</h3>
-        <p>Integrated plans that tie channels, content and budget to one clear goal.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <article class="card reveal bg-white rounded-3xl p-8 flex flex-col gap-3.5 transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-soft">
+        <span class="icon w-14 h-14 rounded-2xl bg-[#EFE9FE] grid place-items-center flex-shrink-0 transition-all duration-300">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
+        </span>
+        <h3 class="text-[21px] font-bold">Marketing strategy</h3>
+        <p class="text-base text-[#4A4462]">Integrated plans that tie channels, content and budget to one clear goal.</p>
       </article>
-      <article class="card reveal">
-        <span class="icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
-        <h3>Social media management</h3>
-        <p>Content calendars, community and team leadership for growing pages.</p>
+      <article class="card reveal bg-white rounded-3xl p-8 flex flex-col gap-3.5 transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-soft">
+        <span class="icon w-14 h-14 rounded-2xl bg-[#EFE9FE] grid place-items-center flex-shrink-0 transition-all duration-300">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </span>
+        <h3 class="text-[21px] font-bold">Social media management</h3>
+        <p class="text-base text-[#4A4462]">Content calendars, community and team leadership for growing pages.</p>
       </article>
-      <article class="card reveal">
-        <span class="icon"><svg viewBox="0 0 24 24"><path d="M3 11l18-8v18L3 13z"/><path d="M7 12v6a2 2 0 0 0 4 0v-5"/></svg></span>
-        <h3>Public relations</h3>
-        <p>Brand visibility and media engagement that builds real credibility.</p>
+      <article class="card reveal bg-white rounded-3xl p-8 flex flex-col gap-3.5 transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-soft">
+        <span class="icon w-14 h-14 rounded-2xl bg-[#EFE9FE] grid place-items-center flex-shrink-0 transition-all duration-300">
+          <svg viewBox="0 0 24 24"><path d="M3 11l18-8v18L3 13z"/><path d="M7 12v6a2 2 0 0 0 4 0v-5"/></svg>
+        </span>
+        <h3 class="text-[21px] font-bold">Public relations</h3>
+        <p class="text-base text-[#4A4462]">Brand visibility and media engagement that builds real credibility.</p>
       </article>
-      <article class="card reveal">
-        <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"/><circle cx="11" cy="11" r="2"/></svg></span>
-        <h3>Graphic design</h3>
-        <p>Brand identity, social creatives and campaign visuals.</p>
+      <article class="card reveal bg-white rounded-3xl p-8 flex flex-col gap-3.5 transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-soft">
+        <span class="icon w-14 h-14 rounded-2xl bg-[#EFE9FE] grid place-items-center flex-shrink-0 transition-all duration-300">
+          <svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"/><circle cx="11" cy="11" r="2"/></svg>
+        </span>
+        <h3 class="text-[21px] font-bold">Graphic design</h3>
+        <p class="text-base text-[#4A4462]">Brand identity, social creatives and campaign visuals.</p>
       </article>
-      <article class="card reveal">
-        <span class="icon"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M22 8l-6 4 6 4z"/></svg></span>
-        <h3>Video editing</h3>
-        <p>Short-form and promo videos cut for each platform.</p>
+      <article class="card reveal bg-white rounded-3xl p-8 flex flex-col gap-3.5 transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-soft">
+        <span class="icon w-14 h-14 rounded-2xl bg-[#EFE9FE] grid place-items-center flex-shrink-0 transition-all duration-300">
+          <svg viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M22 8l-6 4 6 4z"/></svg>
+        </span>
+        <h3 class="text-[21px] font-bold">Video editing</h3>
+        <p class="text-base text-[#4A4462]">Short-form and promo videos cut for each platform.</p>
       </article>
-      <article class="card reveal">
-        <span class="icon"><svg viewBox="0 0 24 24"><path d="M22 10L12 5 2 10l10 5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span>
-        <h3>EdTech growth</h3>
-        <p>Marketing for education brands, from admission prep to online classes.</p>
+      <article class="card reveal bg-white rounded-3xl p-8 flex flex-col gap-3.5 transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-soft">
+        <span class="icon w-14 h-14 rounded-2xl bg-[#EFE9FE] grid place-items-center flex-shrink-0 transition-all duration-300">
+          <svg viewBox="0 0 24 24"><path d="M22 10L12 5 2 10l10 5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>
+        </span>
+        <h3 class="text-[21px] font-bold">EdTech growth</h3>
+        <p class="text-base text-[#4A4462]">Marketing for education brands, from admission prep to online classes.</p>
       </article>
     </div>
   </section>
 
-  <section id="experience" class="split">
-    <div class="side reveal">
+  <!-- EXPERIENCE -->
+  <section id="experience" class="split grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-10 lg:gap-20 items-start px-5 sm:px-8 md:px-12 lg:px-16 xl:px-24 pt-28 max-w-[1440px] mx-auto">
+    <div class="side reveal flex flex-col gap-4 lg:sticky lg:top-[120px]">
       <h2>Experience</h2>
-      <p>Marketing, PR and leadership roles across EdTech and agency work in Dhaka.</p>
+      <p class="text-lg text-[#4A4462]">Marketing, PR and leadership roles across EdTech and agency work in Dhaka.</p>
     </div>
-    <ol class="timeline">
-      <li class="reveal">
+    <ol class="timeline list-none m-0 p-2 sm:p-10 bg-white rounded-3xl">
+      <li class="reveal flex gap-6 py-7 border-b border-[#ECE6FA] max-md:flex-wrap max-md:gap-3">
         <span class="date">Mar 2025 – Now</span>
         <img src="privatune.webp" alt="" class="logo fill">
-        <div><h3>Co-Founder &amp; CEO, Privatune</h3><p>EdTech platform with accessible content for private university admission prep in Bangladesh and beyond.</p></div>
+        <div><h3 class="text-[21px] font-bold mb-1.5">Co-Founder &amp; CEO, Privatune</h3><p class="text-[#4A4462]">EdTech platform with accessible content for private university admission prep in Bangladesh and beyond.</p></div>
       </li>
-      <li class="reveal">
+      <li class="reveal flex gap-6 py-7 border-b border-[#ECE6FA] max-md:flex-wrap max-md:gap-3">
         <span class="date">Sep 2024 – Now</span>
         <img src="ezionic.webp" alt="" class="logo">
-        <div><h3>Co-Founder &amp; Managing Director, Ezionic</h3><p>Agency for graphic design, video editing and integrated marketing, serving clients across industries.</p></div>
+        <div><h3 class="text-[21px] font-bold mb-1.5">Co-Founder &amp; Managing Director, Ezionic</h3><p class="text-[#4A4462]">Agency for graphic design, video editing and integrated marketing, serving clients across industries.</p></div>
       </li>
-      <li class="reveal">
+      <li class="reveal flex gap-6 py-7 border-b border-[#ECE6FA] max-md:flex-wrap max-md:gap-3">
         <span class="date">Sep 2024 – Feb 2025</span>
         <img src="achieve.webp" alt="" class="logo">
-        <div><h3>Chief Marketing Officer, ACHIEVE</h3><p>Led marketing from day one and helped grow the brand from the ground up.</p></div>
+        <div><h3 class="text-[21px] font-bold mb-1.5">Chief Marketing Officer, ACHIEVE</h3><p class="text-[#4A4462]">Led marketing from day one and helped grow the brand from the ground up.</p></div>
       </li>
-      <li class="reveal">
+      <li class="reveal flex gap-6 py-7 border-b border-[#ECE6FA] max-md:flex-wrap max-md:gap-3">
         <span class="date">Jun 2024 – Mar 2025</span>
         <img src="acs.webp" alt="" class="logo">
-        <div><h3>Social Media Team Lead, ACS</h3><p>Led the social media team on-site.</p></div>
+        <div><h3 class="text-[21px] font-bold mb-1.5">Social Media Team Lead, ACS</h3><p class="text-[#4A4462]">Led the social media team on-site.</p></div>
       </li>
-      <li class="reveal">
+      <li class="reveal flex gap-6 py-7 border-b-0 max-md:flex-wrap max-md:gap-3">
         <span class="date">May 2024 – Mar 2025</span>
         <img src="apars.webp" alt="" class="logo blue">
-        <div><h3>Manager, Public Relations, Apar's Classroom</h3><p>Ran PR initiatives to boost brand visibility and media engagement for an admission-prep EdTech platform.</p></div>
+        <div><h3 class="text-[21px] font-bold mb-1.5">Manager, Public Relations, Apar's Classroom</h3><p class="text-[#4A4462]">Ran PR initiatives to boost brand visibility and media engagement for an admission-prep EdTech platform.</p></div>
       </li>
     </ol>
   </section>
 
-  <section id="education" class="split">
+  <!-- EDUCATION -->
+  <section id="education" class="split grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-10 lg:gap-20 items-start px-5 sm:px-8 md:px-12 lg:px-16 xl:px-24 pt-28 max-w-[1440px] mx-auto">
     <h2 class="side reveal">Education</h2>
-    <div class="edu">
-      <article class="card reveal">
-        <img src="nsu.webp" alt="North South University logo">
-        <h3>North South University</h3>
-        <p class="strong">Bachelor of Business Administration (BBA)</p>
-        <p>In progress, started December 2024</p>
+    <div class="edu grid grid-cols-1 md:grid-cols-2 gap-6">
+      <article class="card reveal bg-white rounded-3xl p-8 flex flex-col gap-2 transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-soft">
+        <img src="nsu.webp" alt="North South University logo" class="w-[72px] h-[72px] object-contain mb-3">
+        <h3 class="text-[21px] font-bold">North South University</h3>
+        <p class="strong text-[#1B1531] font-semibold">Bachelor of Business Administration (BBA)</p>
+        <p class="text-[#4A4462]">In progress, started December 2024</p>
       </article>
-      <article class="card reveal">
-        <img src="scpsc.webp" alt="Savar Cantonment Public School &amp; College logo">
-        <h3>Savar Cantonment Public School &amp; College</h3>
-        <p>Class of 2024</p>
+      <article class="card reveal bg-white rounded-3xl p-8 flex flex-col gap-2 transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-soft">
+        <img src="scpsc.webp" alt="Savar Cantonment Public School &amp; College logo" class="w-[72px] h-[72px] object-contain mb-3">
+        <h3 class="text-[21px] font-bold">Savar Cantonment Public School &amp; College</h3>
+        <p class="text-[#4A4462]">Class of 2024</p>
       </article>
     </div>
   </section>
 
-  <section id="contact" class="cta reveal">
-    <div>
-      <h2>Let's grow your brand.</h2>
-      <p>Tell me about your project and I'll reply within a day.</p>
+  <!-- CONTACT / CTA -->
+  <section id="contact" class="cta reveal mx-auto mt-28 px-7 sm:px-12 lg:px-16 xl:px-[72px] py-16 bg-[#5B36D6] rounded-[2rem] flex flex-col lg:flex-row items-center justify-between gap-10 w-[calc(100%-2*clamp(20px,6.5vw,96px))] max-w-[1248px] relative overflow-hidden">
+    <div class="absolute w-[420px] h-[420px] rounded-full bg-white/10 -right-28 -top-48 animate-bob pointer-events-none"></div>
+    <div class="relative z-10 text-center lg:text-left">
+      <h2 class="text-white">Let's grow your brand.</h2>
+      <p class="text-[#EDE7FF] text-lg mt-3.5 max-w-lg">Tell me about your project and I'll reply within a day.</p>
+      <div class="flex flex-wrap gap-4 mt-6 justify-center lg:justify-start">
+        <a href="mailto:khalidafsarmahmud@gmail.com" class="btn btn-white">Email me</a>
+        <a href="https://www.linkedin.com/in/khalidmahmud" class="btn btn-outline" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
     </div>
-    <div class="actions">
-      <a href="mailto:YOUR-EMAIL@example.com" class="btn btn-white">Email me</a>
-      <a href="https://www.linkedin.com/in/YOUR-PROFILE" class="btn btn-outline" target="_blank" rel="noopener">LinkedIn</a>
+    <div class="relative z-10 flex flex-wrap gap-4 items-center justify-center lg:justify-end">
+      <a href="https://wa.me/8801830007489" class="btn btn-outline" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="https://www.facebook.com/khalidafsarmahmud" class="btn btn-outline" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.facebook.com/khalidafsar01" class="btn btn-outline" target="_blank" rel="noopener">Personal FB</a>
     </div>
   </section>
 </main>
 
-<footer class="footer">
+<!-- FOOTER -->
+<footer class="footer flex flex-col sm:flex-row justify-between gap-4 flex-wrap px-5 sm:px-8 md:px-12 lg:px-16 xl:px-24 py-12 text-[#4A4462] text-[15px] max-w-[1440px] mx-auto">
   <span>© <span id="year">2026</span> Khalid Afsar Mahmud</span>
   <span>Digital marketer, Dhaka</span>
 </footer>
 
-<script src="script.js"></script>
+<script>
+  (function() {
+    // Progress bar and sticky nav
+    const nav = document.querySelector('.nav');
+    const bar = document.querySelector('.progress');
+    function onScroll() {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+      nav.classList.toggle('scrolled', scrollY > 10);
+    }
+    addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Mobile menu
+    const menuBtn = document.querySelector('.menu-btn');
+    const links = document.querySelector('.links');
+    menuBtn.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open);
+      // toggle classes for mobile menu visibility
+      links.classList.toggle('max-md:opacity-0', !open);
+      links.classList.toggle('max-md:pointer-events-none', !open);
+      links.classList.toggle('max-md:-translate-y-2', !open);
+      links.classList.toggle('max-md:opacity-100', open);
+      links.classList.toggle('max-md:pointer-events-auto', open);
+      links.classList.toggle('max-md:translate-y-0', open);
+    });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      links.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      links.classList.add('max-md:opacity-0', 'max-md:pointer-events-none', 'max-md:-translate-y-2');
+      links.classList.remove('max-md:opacity-100', 'max-md:pointer-events-auto', 'max-md:translate-y-0');
+    }));
+
+    // Stagger reveal delays
+    document.querySelectorAll('.grid, .timeline, .edu').forEach(group => {
+      [...group.children].forEach((el, i) => el.style.setProperty('--delay', `${i * 0.08}s`));
+    });
+
+    // Intersection observer for reveal animations
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Initialize mobile menu classes (hidden by default on mobile via Tailwind classes)
+    // Ensure that the links container on mobile has correct default classes from HTML
+    // (Already present in HTML: max-md:opacity-0 max-md:pointer-events-none max-md:-translate-y-2)
+    // The toggle function will manage.
+  })();
+</script>
 </body>
 </html>
+```
